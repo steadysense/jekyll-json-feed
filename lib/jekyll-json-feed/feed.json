@@ -58,7 +58,12 @@
               , "url": {{ post_author_uri | jsonify }}
               {% endif %}
             },
-            "tags": {{ post.tags | jsonify }}
+            "tags": {{ post.tags | jsonify }},
+            {% if post.app_blog_recommendations and post.app_blog_recommendations != empty %}
+            "app_blog_recommendations": {{ post.app_blog_recommendations | jsonify }}
+            {% else %}
+            "app_blog_recommendations": []
+            {% endif %}
         }{% unless forloop.last == true %},{% endunless %}
       {% endfor %}
     ]
