@@ -1,5 +1,5 @@
 {
-    "version": "https://jsonfeed.org/version/1",
+    "version": "https://jsonfeed.org/version/1.1",
     {% if site.title %}
     "title": {{ site.title | smartify | jsonify }},
     {% elsif site.name %}
@@ -7,6 +7,9 @@
     {% endif %}
     {% if site.description %}
     "description": {{ site.description | jsonify }},
+    {% endif %}
+    {% if site.lang %}
+    "language": {{ site.lang | jsonify }},
     {% endif %}
     "home_page_url": {{ '/' | absolute_url | jsonify }},
     "feed_url": {{ page.url | absolute_url | jsonify }},
@@ -23,7 +26,7 @@
     {% endif %}
     "items": [
       {% assign posts = site.posts | where_exp: "post", "post.draft != true" %}
-      {% for post in posts limit: 10 %}
+      {% for post in posts %}
         {
             "id": {{ post.id | absolute_url | jsonify }},
             "url": {{ post.url | absolute_url | jsonify }},
